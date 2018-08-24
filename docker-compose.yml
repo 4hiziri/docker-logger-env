@@ -1,0 +1,41 @@
+version: '3'
+services:
+  fluentd:
+    build: fluentd/
+    ports:
+      # - "2055:2055"
+      - "2055:2055/udp"
+    networks:
+      intra:
+        ipv4_address: 172.16.200.101
+    volumes:
+      - ./fluentd/netflow-log:/fluentd/netflow-log
+  elasticsearch:
+    image: elasticsearch:alpine
+    # ports:
+    #   - 9200:9200
+    networks:
+      intra:
+        ipv4_address: 172.16.200.102
+    volumes:
+      - ./elasticsearch/data:/usr/share/elasticsearch/data
+  kibana:
+    # image: kibana
+    build: kibana/
+    networks:
+      intra:
+        ipv4_address: 172.16.200.103
+    depends_on:
+      - elasticsearch
+    ports:
+      - 5601:5601
+      
+networks:
+  intra:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      -
+        subnet: 172.16.200.0/24
+# docker run -it -p 2055:2055 -p 2055:2055/udp --net=host -v $(pwd)/netflow-log:/fluentd/netflow-log logger
