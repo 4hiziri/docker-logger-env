@@ -10,6 +10,7 @@ services:
         ipv4_address: 172.16.200.101
     volumes:
       - ./fluentd/netflow-log:/fluentd/netflow-log
+    # restart: always
   elasticsearch:
     image: elasticsearch:alpine
     # ports:
@@ -19,6 +20,7 @@ services:
         ipv4_address: 172.16.200.102
     volumes:
       - ./elasticsearch/data:/usr/share/elasticsearch/data
+    # restart: always
   kibana:
     # image: kibana
     build: kibana/
@@ -29,6 +31,7 @@ services:
       - elasticsearch
     ports:
       - 5601:5601
+    # restart: always
       
 networks:
   intra:
