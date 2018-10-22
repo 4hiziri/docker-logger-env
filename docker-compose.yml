@@ -12,7 +12,7 @@ services:
       - ./fluentd/netflow-log:/fluentd/netflow-log
     # restart: always
   elasticsearch:
-    image: elasticsearch:alpine
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.2
     # ports:
     #   - 9200:9200
     networks:
