@@ -3,7 +3,6 @@ services:
   fluentd:
     build: fluentd/
     ports:
-      # - "2055:2055"
       - "2055:2055/udp"
     networks:
       intra:
@@ -13,8 +12,8 @@ services:
     # restart: always
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.4.2
-    # ports:
-    #   - 9200:9200
+    expose:
+      - 9200:9200
     environment:
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
