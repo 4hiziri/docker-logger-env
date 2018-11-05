@@ -1,7 +1,7 @@
 FROM fluent/fluentd:stable-debian-onbuild
 
 # RUN useradd fluent
-RUN buildDeps="sudo make gcc g++ libc-dev ruby-dev libcurl4-openssl-dev gnupg2 git" \
+RUN buildDeps="sudo make gcc g++ libc-dev ruby-dev libcurl4-openssl-dev gnupg2" \
  && apt-get update \
  && apt-get install -y --no-install-recommends $buildDeps \
  && sudo gem install \
