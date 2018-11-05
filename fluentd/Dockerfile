@@ -6,6 +6,7 @@ RUN buildDeps="sudo make gcc g++ libc-dev ruby-dev libcurl4-openssl-dev gnupg2" 
  && apt-get install -y --no-install-recommends $buildDeps \
  && sudo gem install \
 	fluent-plugin-elasticsearch fluent-plugin-netflow-enchanced \
+ && sudo gem install fluent-plugin-netflow-enchanced --pre \
  && sudo gem sources --clear-all \
  && SUDO_FORCE_REMOVE=yes \
     apt-get purge -y --auto-remove \
