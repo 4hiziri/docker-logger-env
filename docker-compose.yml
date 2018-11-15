@@ -18,8 +18,8 @@ services:
       memlock:
         soft: -1
         hard: -1
-    expose:
-      - 9200
+    # expose:
+    #   - 9200
     networks:
       intra:
         ipv4_address: 172.16.200.102
@@ -29,15 +29,25 @@ services:
   kibana:
     image: docker.elastic.co/kibana/kibana:6.4.2
     volumes:
-      - ./kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
+      - ./kibana/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
     networks:
       intra:
         ipv4_address: 172.16.200.103
     depends_on:
       - elasticsearch
-    ports:
-      - 5601:5601
+    # ports:
+    #   - 5601:5601
     # restart: always
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/htpasswd:/usr/local/nginx/.htpasswd:ro
+    networks:
+      intra:
+        ipv4_address: 172.16.200.104
+    ports:
+      - 80:80
       
 networks:
   intra:
